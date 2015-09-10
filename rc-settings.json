@@ -1,0 +1,45 @@
+{
+	"kind": "ReplicationController",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "ghost-rc",
+		"labels": {
+			"server": "prod",
+			"app": "ghost"
+		}
+	},
+ 	"spec": {
+		"replicas": 1,		
+		"selector": {
+			"server": "prod",
+      			"app": "ghost"
+    		},
+		"template": {	
+			"metadata": {
+				"labels": {
+					"server": "prod",
+					"app": "ghost"
+			 	}
+			},
+			"spec": {
+				"containers": [{
+					"name": "ghost",
+					"image": "ghost",
+					"ports": [{
+						"containerPort": 2368,
+						"hostPort": 2368	
+					}]
+				}],
+				"restartPolicy": "Always",
+				"dnsPolicy": "ClusterFirst",
+				"volumes": [{
+					"name": "ghost",
+					"gcePersistentDisk": {
+						"pdName": "ghost",
+						"fsType": "ext4"
+					}
+				}]
+			}
+		}
+	}
+}
