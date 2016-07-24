@@ -10,9 +10,9 @@
 			"targetPort": 2368	
 		}],
 		"selector": {
-      			"server": "prod",
+      		"server": "prod",
 			"app": "ghost"
-    		},
-    		"type": "LoadBalancer"
+    	},
+    	"type": "LoadBalancer"
 	}
 }

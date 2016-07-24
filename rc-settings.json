@@ -11,7 +11,7 @@
  	"spec": {
 		"replicas": 1,		
 		"selector": {
-			"server": "prod",
+				"server": "prod",
       			"app": "ghost"
     		},
 		"template": {	
@@ -28,14 +28,28 @@
 					"ports": [{
 						"containerPort": 2368,
 						"hostPort": 2368	
-					}]
+					}],
+					"volumeMounts": [{
+						"mountPath": "/var/lib/ghost",
+						"name": "ghost-disk"
+					}],
+					"resources": {
+						"limits": {
+							"cpu": "200m",
+							"memory": "2000Mi"
+						}, 
+						"requests": {
+							"cpu": "10m",
+							"memory": "250Mi"
+						}
+					}
 				}],
 				"restartPolicy": "Always",
 				"dnsPolicy": "ClusterFirst",
 				"volumes": [{
-					"name": "ghost",
+					"name": "ghost-disk",
 					"gcePersistentDisk": {
-						"pdName": "ghost",
+						"pdName": "ghost-disk",
 						"fsType": "ext4"
 					}
 				}]
